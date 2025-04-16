@@ -17,11 +17,13 @@ export async function filterProducts(
 ): Promise<IProduct[]> {
   let filteredProducts = [...products];
 
+  const options = await Promise.resolve(filterOptions);
+
   // Filter by category
-  if (filterOptions.category) {
-    const categories = Array.isArray(filterOptions.category)
-      ? filterOptions.category
-      : [filterOptions.category];
+  if (options.category) {
+    const categories = Array.isArray(options.category)
+      ? options.category
+      : [options.category];
 
     if (categories.length > 0) {
       filteredProducts = filteredProducts.filter((product) =>
@@ -33,10 +35,10 @@ export async function filterProducts(
   }
 
   // Filter by color
-  if (filterOptions.color) {
-    const colors = Array.isArray(filterOptions.color)
-      ? filterOptions.color
-      : [filterOptions.color];
+  if (options.color) {
+    const colors = Array.isArray(options.color)
+      ? options.color
+      : [options.color];
 
     if (colors.length > 0) {
       filteredProducts = filteredProducts.filter((product) =>
@@ -49,12 +51,8 @@ export async function filterProducts(
   }
 
   // Filter by price range
-  const minPrice = filterOptions.minPrice
-    ? parseFloat(filterOptions.minPrice)
-    : undefined;
-  const maxPrice = filterOptions.maxPrice
-    ? parseFloat(filterOptions.maxPrice)
-    : undefined;
+  const minPrice = options.minPrice ? parseFloat(options.minPrice) : undefined;
+  const maxPrice = options.maxPrice ? parseFloat(options.maxPrice) : undefined;
 
   if (minPrice !== undefined) {
     filteredProducts = filteredProducts.filter(
@@ -69,8 +67,8 @@ export async function filterProducts(
   }
 
   // Filter by search term
-  if (filterOptions.search) {
-    const searchTerm = filterOptions.search.toLowerCase();
+  if (options.search) {
+    const searchTerm = options.search.toLowerCase();
     filteredProducts = filteredProducts.filter(
       (product) =>
         product.title.toLowerCase().includes(searchTerm) ||
@@ -80,8 +78,8 @@ export async function filterProducts(
   }
 
   // Sort products
-  if (filterOptions.sort) {
-    switch (filterOptions.sort) {
+  if (options.sort) {
+    switch (options.sort) {
       case "price-asc":
         filteredProducts.sort((a, b) => a.price - b.price);
         break;

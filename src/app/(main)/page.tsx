@@ -15,7 +15,9 @@ type Props = {
   };
 };
 
-export default function Home({ searchParams }: Props) {
+export default async function Home(props: Props) {
+  const { searchParams } = await Promise.resolve(props);
+
   return (
     <div>
       <HeroSection />

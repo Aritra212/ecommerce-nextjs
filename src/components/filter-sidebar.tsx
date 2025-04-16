@@ -96,7 +96,7 @@ export default function FilterSidebar() {
     params.set("minPrice", priceRange[0].toString());
     params.set("maxPrice", priceRange[1].toString());
 
-    router.push(`/?${params.toString()}`);
+    router.push(`/products?${params.toString()}`);
   };
 
   const resetFilters = () => {

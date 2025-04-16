@@ -13,11 +13,10 @@ interface ProductGridProps {
   };
 }
 
-export default async function ProductGrid({
-  searchParams = {},
-}: ProductGridProps) {
-  // Fetch all products
+export default async function ProductGrid(props: ProductGridProps) {
   const allProducts = await getProducts();
+
+  const { searchParams = {} } = await Promise.resolve(props);
 
   // Apply server-side filtering
   const filteredProducts = await filterProducts(allProducts, searchParams);
