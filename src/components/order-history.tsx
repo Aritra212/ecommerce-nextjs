@@ -25,6 +25,7 @@ export default function OrderHistory() {
     }
 
     getOrderHistory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) {

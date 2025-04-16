@@ -2,21 +2,23 @@ import { getProducts } from "@/utils/data-access/api";
 import ProductCard from "@/components/product-card-action";
 import { filterProducts } from "@/utils/data-access/filter-products";
 
-interface ProductGridProps {
-  searchParams?: {
-    category?: string | string[];
-    color?: string | string[];
-    minPrice?: string;
-    maxPrice?: string;
-    sort?: string;
-    search?: string;
-  };
+interface SearchParams {
+  category?: string | string[];
+  color?: string | string[];
+  minPrice?: string;
+  maxPrice?: string;
+  sort?: string;
+  search?: string;
 }
 
-export default async function ProductGrid(props: ProductGridProps) {
-  const allProducts = await getProducts();
+interface ProductGridProps {
+  searchParams?: SearchParams;
+}
 
-  const { searchParams = {} } = await Promise.resolve(props);
+export default async function ProductGrid({
+  searchParams = {},
+}: ProductGridProps) {
+  const allProducts = await getProducts();
 
   // Apply server-side filtering
   const filteredProducts = await filterProducts(allProducts, searchParams);

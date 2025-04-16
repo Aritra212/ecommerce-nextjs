@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { EyeIcon, EyeOff, Mail, User } from "lucide-react";
+import { EyeIcon, EyeOff, Mail } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { register } from "@/utils/data-access/auth";

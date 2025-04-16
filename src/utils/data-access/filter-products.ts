@@ -17,7 +17,7 @@ export async function filterProducts(
 ): Promise<IProduct[]> {
   let filteredProducts = [...products];
 
-  const options = await Promise.resolve(filterOptions);
+  const options = filterOptions;
 
   // Filter by category
   if (options.category) {

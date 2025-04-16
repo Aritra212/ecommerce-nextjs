@@ -1,9 +1,8 @@
 "use client";
 
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { User } from "@supabase/supabase-js";
-import { createClient } from "@/utils/supabase/client";
 
 export interface IUserContext {
   user: User | null;
@@ -24,7 +23,6 @@ const queryClient = new QueryClient();
 
 export default function UserContextProvider({ userData, children }: Props) {
   const [user, setUser] = useState<User | null>(userData ?? null);
-  const supabase = createClient();
 
   return (
     <QueryClientProvider client={queryClient}>
