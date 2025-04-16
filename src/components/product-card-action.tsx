@@ -43,7 +43,7 @@ export default function ProductCard({ product }: Props) {
   };
 
   return (
-    <Link href={`/products/${product.id}`}>
+    <div>
       <Card
         className="group overflow-hidden transition-all duration-300 hover:shadow-lg"
         onMouseEnter={() => setIsHovered(true)}
@@ -60,9 +60,9 @@ export default function ProductCard({ product }: Props) {
             )}
           />
 
-          {product.category === "electronics" && (
-            <Badge className="absolute left-2 top-2">Electronics</Badge>
-          )}
+          <Badge className="absolute left-2 top-2 capitalize">
+            {product.category}
+          </Badge>
 
           <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
             <Button
@@ -116,6 +116,6 @@ export default function ProductCard({ product }: Props) {
           <div className="text-sm text-yellow-500">★★★★☆</div>
         </CardFooter>
       </Card>
-    </Link>
+    </div>
   );
 }

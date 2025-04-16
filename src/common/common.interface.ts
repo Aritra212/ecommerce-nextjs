@@ -37,17 +37,8 @@ export interface IUser {
 export interface IOrder {
   id: string;
   userId: string;
-  items: ICartItem[];
-  total: number;
-  status: "pending" | "processing" | "shipped" | "delivered";
-  shippingAddress: {
-    fullName: string;
-    address: string;
-    city: string;
-    state: string;
-    postalCode: string;
-    country: string;
-  };
-  paymentMethod: string;
-  createdAt: string;
+  product_details: ICartItem[];
+  amount: number;
+  status: "pending" | "processing" | "shipped" | "delivered" | "Done";
+  created_at: string;
 }

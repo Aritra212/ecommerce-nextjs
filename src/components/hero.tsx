@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import ProductCard from "./product-card";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -26,19 +27,24 @@ export default function HeroSection() {
             visualized, and your wishlist never gets lost. Start shopping
             smarter now.
           </p>
-          <Button>
-            Explore Products <ChevronRight />
-          </Button>
+          <Link href={"/products"}>
+            <Button>
+              Explore Products <ChevronRight />
+            </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-3 gap-1 items-center ">
           <div className="col-span-1 space-y-4">
-            <ProductCard imageURL="/images/1.jpg" className="h-56" />
-            <ProductCard imageURL="/images/2.png" className="h-56" />
+            <ProductCard imageURL="/images/3.jpg" className="h-56" />
+            <ProductCard
+              imageURL="/images/2.png"
+              className="h-56 bg-cyan-600"
+            />
           </div>
           <div className="relative col-span-2 w-fit">
             <ProductCard
-              imageURL="/images/3.jpg"
+              imageURL="/images/1.jpg"
               className="w-[450px] h-[420px] "
             />
           </div>

@@ -2,26 +2,50 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-// import { useAuth } from "@/context/auth-context";
+import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/utils/context/cart-context";
 import { useWishlist } from "@/utils/context/wishlist-context";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 // import { ModeToggle } from "@/components/mode-toggle";
 import { Badge } from "@/components/ui/badge";
-import { Heart, Menu, Search, ShoppingCart, User, X } from "lucide-react";
+import {
+  Heart,
+  LogOut,
+  Menu,
+  // Search,
+  ShoppingCart,
+  User,
+  // X,
+} from "lucide-react";
+import useUser from "@/hooks/use-user";
+import Show from "./ui/show";
+import { toast } from "sonner";
+import { logout } from "@/utils/data-access/auth";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  // const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const pathname = usePathname();
-  //   const { user } = useAuth();
-  const user = "adf";
+  const router = useRouter();
+  const { user } = useUser();
   const { cart } = useCart();
   const { wishlist } = useWishlist();
   const [mounted, setMounted] = useState(false);
+
+  const handleLogout = async () => {
+    toast.loading("Logging out...");
+    const { error } = await logout();
+
+    if (error) {
+      toast.dismiss();
+      toast.error(error);
+    }
+
+    toast.dismiss();
+    router.push("/login");
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -68,30 +92,6 @@ export default function Header() {
                 >
                   All Products
                 </Link>
-                <Link
-                  href="/categories/electronics"
-                  className="text-lg font-medium transition-colors hover:text-primary"
-                >
-                  Electronics
-                </Link>
-                <Link
-                  href="/categories/jewelry"
-                  className="text-lg font-medium transition-colors hover:text-primary"
-                >
-                  Jewelry
-                </Link>
-                <Link
-                  href="/categories/mens-clothing"
-                  className="text-lg font-medium transition-colors hover:text-primary"
-                >
-                  Men's Clothing
-                </Link>
-                <Link
-                  href="/categories/womens-clothing"
-                  className="text-lg font-medium transition-colors hover:text-primary"
-                >
-                  Women's Clothing
-                </Link>
               </nav>
             </SheetContent>
           </Sheet>
@@ -119,31 +119,11 @@ export default function Header() {
             >
               All Products
             </Link>
-            <Link
-              href="/categories/electronics"
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                pathname === "/categories/electronics"
-                  ? "text-primary"
-                  : "text-muted-foreground"
-              }`}
-            >
-              Electronics
-            </Link>
-            <Link
-              href="/categories/jewelry"
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                pathname === "/categories/jewelry"
-                  ? "text-primary"
-                  : "text-muted-foreground"
-              }`}
-            >
-              Jewelry
-            </Link>
           </nav>
         </div>
 
         <div className="flex items-center gap-4">
-          {isMobileSearchOpen ? (
+          {/* {isMobileSearchOpen ? (
             <div className="absolute inset-x-0 top-0 z-50 flex h-16 items-center gap-2 bg-background px-4 sm:px-6 lg:px-8">
               <Input
                 type="search"
@@ -170,9 +150,9 @@ export default function Header() {
               <Search className="h-5 w-5" />
               <span className="sr-only">Search</span>
             </Button>
-          )}
+          )} */}
 
-          <div className="hidden items-center md:flex">
+          {/* <div className="hidden items-center md:flex">
             <form className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
@@ -181,7 +161,7 @@ export default function Header() {
                 className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[300px]"
               />
             </form>
-          </div>
+          </div> */}
 
           {/* <ModeToggle /> */}
 
@@ -215,20 +195,26 @@ export default function Header() {
             </Button>
           </Link>
 
-          {user ? (
-            <Link href="/profile">
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-                <span className="sr-only">Profile</span>
+          <Show when={!!user}>
+            <>
+              <Link href="/profile">
+                <Button size="icon">
+                  <User className="h-5 w-5" />
+                  <span className="sr-only">Profile</span>
+                </Button>
+              </Link>
+              <Button variant={"ghost"} onClick={handleLogout}>
+                <LogOut className="h-5 w-5" />
+                <span className="hidden sm:block">Log Out</span>
               </Button>
+            </>
+          </Show>
+
+          <Show when={!user}>
+            <Link href="/login">
+              <Button size="sm">Log In</Button>
             </Link>
-          ) : (
-            <Link href="/auth/login">
-              <Button variant="ghost" size="sm">
-                Sign In
-              </Button>
-            </Link>
-          )}
+          </Show>
         </div>
       </div>
     </header>

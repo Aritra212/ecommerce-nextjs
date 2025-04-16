@@ -69,7 +69,7 @@ export default function Footer() {
                   href="/categories/mens-clothing"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Men's Clothing
+                  Men&apos;s Clothing
                 </Link>
               </li>
               <li>
@@ -77,7 +77,7 @@ export default function Footer() {
                   href="/categories/womens-clothing"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Women's Clothing
+                  Women&apos;s Clothing
                 </Link>
               </li>
             </ul>

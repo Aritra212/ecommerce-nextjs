@@ -3,12 +3,12 @@
 import type React from "react";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import type { Product } from "@/common/common.interface";
+import type { IProduct } from "@/common/common.interface";
 
 interface WishlistContextType {
-  wishlist: Product[];
+  wishlist: IProduct[];
   isLoading: boolean;
-  addToWishlist: (product: Product) => void;
+  addToWishlist: (product: IProduct) => void;
   removeFromWishlist: (productId: number) => void;
   isInWishlist: (productId: number) => boolean;
   clearWishlist: () => void;
@@ -26,10 +26,9 @@ const WishlistContext = createContext<WishlistContextType>({
 export const useWishlist = () => useContext(WishlistContext);
 
 export function WishlistProvider({ children }: { children: React.ReactNode }) {
-  const [wishlist, setWishlist] = useState<Product[]>([]);
+  const [wishlist, setWishlist] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load wishlist from localStorage on mount
   useEffect(() => {
     const storedWishlist = localStorage.getItem("wishlist");
     if (storedWishlist) {
@@ -42,14 +41,13 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  // Update localStorage when wishlist changes
   useEffect(() => {
     if (!isLoading) {
       localStorage.setItem("wishlist", JSON.stringify(wishlist));
     }
   }, [wishlist, isLoading]);
 
-  const addToWishlist = (product: Product) => {
+  const addToWishlist = (product: IProduct) => {
     setWishlist((prevWishlist) => {
       if (prevWishlist.some((item) => item.id === product.id)) {
         return prevWishlist;
