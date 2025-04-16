@@ -26,15 +26,6 @@ export const metadata: Metadata = {
     "nextjs",
     "react",
   ],
-  authors: [{ name: "Aritra Paul" }],
-  applicationName: "Premium Shopping",
-  colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "#111827" },
-  ],
-  viewport: "width=device-width, initial-scale=1",
-  robots: "index, follow",
 };
 
 export default function RootLayout({
