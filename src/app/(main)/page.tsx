@@ -19,7 +19,7 @@ export default async function Home(props: Props) {
   const { searchParams } = await Promise.resolve(props);
 
   return (
-    <div>
+    <div className="container px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
       <HeroSection />
       <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-[240px_1fr]">
         <FilterSidebar />
