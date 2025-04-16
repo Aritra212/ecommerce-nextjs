@@ -46,7 +46,7 @@ export default function ProfilePage() {
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">My Account</h1>
           <Button variant="outline" onClick={handleLogout}>
-            Sign Out
+            Log Out
           </Button>
         </div>
 

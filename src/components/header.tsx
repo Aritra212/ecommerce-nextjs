@@ -8,7 +8,7 @@ import { useWishlist } from "@/utils/context/wishlist-context";
 import { Button } from "@/components/ui/button";
 // import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-// import { ModeToggle } from "@/components/mode-toggle";
+import { ModeToggle } from "@/components/mode-toggle";
 import { Badge } from "@/components/ui/badge";
 import {
   Heart,
@@ -163,7 +163,7 @@ export default function Header() {
             </form>
           </div> */}
 
-          {/* <ModeToggle /> */}
+          <ModeToggle />
 
           <Link href="/wishlist">
             <Button variant="ghost" size="icon" className="relative">
