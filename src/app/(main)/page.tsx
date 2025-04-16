@@ -4,7 +4,18 @@ import { ProductSkeleton } from "@/components/product-skeleton";
 import HeroSection from "@/components/hero";
 import FilterSidebar from "@/components/filter-sidebar";
 
-export default function Home() {
+type Props = {
+  searchParams: {
+    category?: string | string[];
+    color?: string | string[];
+    minPrice?: string;
+    maxPrice?: string;
+    sort?: string;
+    search?: string;
+  };
+};
+
+export default function Home({ searchParams }: Props) {
   return (
     <div>
       <HeroSection />
@@ -12,7 +23,7 @@ export default function Home() {
         <FilterSidebar />
         <div>
           <Suspense fallback={<ProductSkeleton />}>
-            <ProductGrid />
+            <ProductGrid searchParams={searchParams} />
           </Suspense>
         </div>
       </div>

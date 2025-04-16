@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -21,6 +21,26 @@ export default function FilterSidebar() {
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
+
+  // Initialize filters from URL parameters
+  useEffect(() => {
+    const categories = searchParams.getAll("category");
+    const colors = searchParams.getAll("color");
+    const minPrice = searchParams.get("minPrice");
+    const maxPrice = searchParams.get("maxPrice");
+
+    if (categories.length > 0) {
+      setSelectedCategories(categories);
+    }
+
+    if (colors.length > 0) {
+      setSelectedColors(colors);
+    }
+
+    if (minPrice && maxPrice) {
+      setPriceRange([parseInt(minPrice), parseInt(maxPrice)]);
+    }
+  }, [searchParams]);
 
   const categories = [
     { id: "electronics", label: "Electronics" },
@@ -136,7 +156,7 @@ export default function FilterSidebar() {
         <AccordionItem value="price">
           <AccordionTrigger>Price Range</AccordionTrigger>
           <AccordionContent>
-            <div className="space-y-4">
+            <div className="space-y-4 mt-2">
               <Slider
                 defaultValue={[0, 1000]}
                 max={1000}
