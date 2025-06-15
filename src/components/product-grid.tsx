@@ -18,10 +18,14 @@ interface ProductGridProps {
 export default async function ProductGrid({
   searchParams = {},
 }: ProductGridProps) {
+  const resolvedSearchParams = await searchParams;
   const allProducts = await getProducts();
 
   // Apply server-side filtering
-  const filteredProducts = await filterProducts(allProducts, searchParams);
+  const filteredProducts = await filterProducts(
+    allProducts,
+    resolvedSearchParams
+  );
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
