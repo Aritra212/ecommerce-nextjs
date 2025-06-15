@@ -35,7 +35,10 @@ export const login = async (formData: ILogin) => {
   const {
     error,
     data: { session },
-  } = await supabase.auth.signInWithPassword(formData);
+  } = await supabase.auth.signInWithPassword({
+    email: formData.email!,
+    password: formData.password!,
+  });
   if (error || !session)
     return { error: error?.message ?? "Invalid login credentials" };
 

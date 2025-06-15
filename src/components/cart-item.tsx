@@ -36,7 +36,7 @@ export default function CartItem({ item }: Props) {
         isRemoving ? "opacity-0 scale-95" : "opacity-100 scale-100"
       }`}
     >
-      <div className="flex items-start p-4">
+      <div className="flex flex-col sm:flex-row items-center gap-y-2 sm:items-start p-4">
         <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md bg-muted sm:h-32 sm:w-32">
           <Image
             src={item.image || "/placeholder.svg"}
@@ -47,7 +47,7 @@ export default function CartItem({ item }: Props) {
         </div>
 
         <div className="ml-4 flex flex-1 flex-col">
-          <div className="flex justify-between">
+          <div className="sm:flex justify-between">
             <div>
               <h3 className="text-sm font-medium">
                 <Link href={`/products/${item.id}`} className="hover:underline">

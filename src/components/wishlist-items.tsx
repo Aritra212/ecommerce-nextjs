@@ -44,7 +44,7 @@ export default function WishlistItems() {
       {wishlist.map((product) => (
         <div
           key={product.id}
-          className={`flex items-start gap-4 rounded-lg border p-4 transition-all duration-300 ${
+          className={`space-y-2 md:flex items-start gap-4 rounded-lg border p-4 transition-all duration-300 ${
             removingItems.includes(product.id)
               ? "opacity-0 scale-95"
               : "opacity-100 scale-100"
@@ -71,7 +71,7 @@ export default function WishlistItems() {
             <p className="mt-1 text-sm text-muted-foreground">
               {product.category}
             </p>
-            <div className="mt-2 flex items-center justify-between">
+            <div className="mt-2 space-y-2 sm:flex items-center justify-between">
               <div className="font-semibold">${product.price.toFixed(2)}</div>
               <div className="flex gap-2">
                 <Button

@@ -148,12 +148,12 @@ export default function Header() {
                   </DropdownMenu>
 
                   <Link href="/wishlist">
-                    <Button variant="ghost">
+                    <Button variant="ghost" className="relative">
                       <Heart className="h-5 w-5" />
                       {wishlistItemCount > 0 && (
                         <Badge
                           variant="destructive"
-                          className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs"
+                          className="absolute left-0 -top-1 h-5 w-5 rounded-full p-0 text-xs"
                         >
                           {wishlistItemCount}
                         </Badge>
@@ -163,12 +163,12 @@ export default function Header() {
                   </Link>
 
                   <Link href="/cart">
-                    <Button variant="ghost">
+                    <Button variant="ghost" className="relative">
                       <ShoppingCart className="h-5 w-5" />
                       {cartItemCount > 0 && (
                         <Badge
                           variant="destructive"
-                          className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs"
+                          className="absolute left-0 -top-1 h-5 w-5 rounded-full p-0 text-xs"
                         >
                           {cartItemCount}
                         </Badge>
@@ -179,17 +179,16 @@ export default function Header() {
 
                   <Show when={!!user}>
                     <>
-                      <Link href="/profile" className="ml-3">
-                        <Button size="icon">
+                      <Link href="/profile">
+                        <Button variant="ghost">
                           <User className="h-5 w-5" />
                           {user?.user_metadata?.name ?? "Profle"}
                         </Button>
                       </Link>
                       <Button
-                        variant={"ghost"}
                         size="lg"
                         onClick={handleLogout}
-                        className="ml-3"
+                        className="ml-3 w-fit"
                       >
                         <LogOut className="h-5 w-5" />
                         Log Out

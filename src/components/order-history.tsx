@@ -68,7 +68,7 @@ export default function OrderHistory() {
       {orders?.map((order) => (
         <div
           key={order.id}
-          className="flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted/50"
+          className=" space-y-2 md:flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted/50"
         >
           <div>
             <div className="flex items-center gap-2">
