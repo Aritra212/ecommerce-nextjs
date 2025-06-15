@@ -53,7 +53,7 @@ export default function CartPage() {
   };
 
   return (
-    <div className="container px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <div className="px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
       <h1 className="text-3xl font-bold">Your Shopping Cart</h1>
       <div className="mt-8 grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2">

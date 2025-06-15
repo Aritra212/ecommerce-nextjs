@@ -12,9 +12,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { X } from "lucide-react";
+import { Undo2 } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 
-export default function FilterSidebar() {
+type Props = {
+  children: React.ReactNode;
+};
+
+export default function FilterSheet({ children }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -107,98 +118,108 @@ export default function FilterSidebar() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Filters</h2>
-        {(selectedCategories.length > 0 ||
-          selectedColors.length > 0 ||
-          priceRange[0] > 0 ||
-          priceRange[1] < 1000) && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-8 px-2 text-xs"
-            onClick={resetFilters}
+    <Sheet>
+      <SheetTrigger asChild>{children}</SheetTrigger>
+      <SheetContent className="h-dvh overflow-y-auto py-6">
+        <SheetHeader className="px-6 ">
+          <SheetTitle>Apply Filters</SheetTitle>
+        </SheetHeader>
+        <div className="space-y-6 px-6 ">
+          <Accordion
+            type="multiple"
+            defaultValue={["categories", "price", "colors"]}
           >
-            <X className="mr-1 h-4 w-4" />
-            Reset
-          </Button>
-        )}
-      </div>
-
-      <Accordion
-        type="multiple"
-        defaultValue={["categories", "price", "colors"]}
-      >
-        <AccordionItem value="categories">
-          <AccordionTrigger>Categories</AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-2">
-              {categories.map((category) => (
-                <div key={category.id} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`category-${category.id}`}
-                    checked={selectedCategories.includes(category.id)}
-                    onCheckedChange={() => handleCategoryChange(category.id)}
-                  />
-                  <Label
-                    htmlFor={`category-${category.id}`}
-                    className="text-sm font-normal"
-                  >
-                    {category.label}
-                  </Label>
+            <AccordionItem value="categories">
+              <AccordionTrigger>Categories</AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2">
+                  {categories.map((category) => (
+                    <div
+                      key={category.id}
+                      className="flex items-center space-x-2"
+                    >
+                      <Checkbox
+                        id={`category-${category.id}`}
+                        checked={selectedCategories.includes(category.id)}
+                        onCheckedChange={() =>
+                          handleCategoryChange(category.id)
+                        }
+                      />
+                      <Label
+                        htmlFor={`category-${category.id}`}
+                        className="text-sm font-normal"
+                      >
+                        {category.label}
+                      </Label>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
+              </AccordionContent>
+            </AccordionItem>
 
-        <AccordionItem value="price">
-          <AccordionTrigger>Price Range</AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-4 mt-2">
-              <Slider
-                defaultValue={[0, 1000]}
-                max={1000}
-                step={10}
-                value={priceRange}
-                onValueChange={handlePriceChange}
-              />
-              <div className="flex items-center justify-between">
-                <div className="text-sm">${priceRange[0]}</div>
-                <div className="text-sm">${priceRange[1]}</div>
-              </div>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="colors">
-          <AccordionTrigger>Colors</AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-2">
-              {colors.map((color) => (
-                <div key={color.id} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`color-${color.id}`}
-                    checked={selectedColors.includes(color.id)}
-                    onCheckedChange={() => handleColorChange(color.id)}
+            <AccordionItem value="price">
+              <AccordionTrigger>Price Range</AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-4 mt-2">
+                  <Slider
+                    defaultValue={[0, 1000]}
+                    max={1000}
+                    step={10}
+                    value={priceRange}
+                    onValueChange={handlePriceChange}
                   />
-                  <Label
-                    htmlFor={`color-${color.id}`}
-                    className="text-sm font-normal"
-                  >
-                    {color.label}
-                  </Label>
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm">${priceRange[0]}</div>
+                    <div className="text-sm">${priceRange[1]}</div>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+              </AccordionContent>
+            </AccordionItem>
 
-      <Button className="w-full" onClick={applyFilters}>
-        Apply Filters
-      </Button>
-    </div>
+            <AccordionItem value="colors">
+              <AccordionTrigger>Colors</AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2">
+                  {colors.map((color) => (
+                    <div key={color.id} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`color-${color.id}`}
+                        checked={selectedColors.includes(color.id)}
+                        onCheckedChange={() => handleColorChange(color.id)}
+                      />
+                      <Label
+                        htmlFor={`color-${color.id}`}
+                        className="text-sm font-normal"
+                      >
+                        {color.label}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+          <div className="flex justify-between">
+            <Button size="lg" onClick={applyFilters}>
+              Apply Filters
+            </Button>
+            {(selectedCategories.length > 0 ||
+              selectedColors.length > 0 ||
+              priceRange[0] > 0 ||
+              priceRange[1] < 1000) && (
+              <Button
+                size="lg"
+                className="text-xs w-fit"
+                onClick={resetFilters}
+              >
+                <Undo2 className="mr-1 h-4 w-4" />
+                Reset
+              </Button>
+            )}
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }
