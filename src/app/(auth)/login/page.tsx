@@ -4,15 +4,12 @@ import Link from "next/link";
 
 export default function Register() {
   return (
-    <Card className="min-w-[600px] min-h-94">
+    <Card className="min-w-[290px] sm:min-w-[600px] min-h-94">
       <CardHeader>
         <CardTitle className="font-bold text-3xl text-center">Log in</CardTitle>
         <p className=" text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link
-            href={"/register"}
-            className="font-bold text-primary hover:underline"
-          >
+          <Link href={"/register"} className="font-bold underline">
             Register
           </Link>
         </p>

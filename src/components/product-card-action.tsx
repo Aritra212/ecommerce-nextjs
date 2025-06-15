@@ -45,7 +45,7 @@ export default function ProductCard({ product }: Props) {
   return (
     <div>
       <Card
-        className="group overflow-hidden transition-all duration-300 hover:shadow-lg"
+        className="group overflow-hidden transition-all duration-300 hover:shadow-lg gap-2"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -64,7 +64,7 @@ export default function ProductCard({ product }: Props) {
             {product.category}
           </Badge>
 
-          <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="absolute inset-0 hidden  md:flex items-center justify-center gap-2 bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
             <Button
               size="icon"
               variant="secondary"
@@ -104,11 +104,15 @@ export default function ProductCard({ product }: Props) {
           </div>
         </div>
 
-        <CardContent className="p-4">
-          <h3 className="line-clamp-1 text-sm font-medium">{product.title}</h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {product.category}
-          </p>
+        <CardContent className="px-4 py-2 md:py-4">
+          <Link href={`/products/${product.id}`}>
+            <h3 className="line-clamp-1 text-sm font-medium">
+              {product.title}
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {product.category}
+            </p>
+          </Link>
         </CardContent>
 
         <CardFooter className="flex items-center justify-between p-4 pt-0">
